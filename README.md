@@ -1,6 +1,6 @@
-# N11 Load Testing with Locust and UI Tests with Pytest and Selenium
+# Testing with Locust and UI Tests with Pytest and Selenium
 
-This project contains load tests for the N11 website, built using the Locust framework. It also includes UI tests implemented with Pytest and Selenium. The load tests simulate user behavior such as searching for products, applying filters, and navigating through paginated results. The UI tests verify the functionality of specific web pages using page object model.
+This project contains load tests for the website, built using the Locust framework. It also includes UI tests implemented with Pytest and Selenium. The load tests simulate user behavior such as searching for products, applying filters, and navigating through paginated results. The UI tests verify the functionality of specific web pages using page object model.
 
 ## Project Structure
 
@@ -41,12 +41,12 @@ locust -f load_tests.py -H https://www.n11.com
 ```
 
 *   `-f load_tests.py`: Specifies the Locustfile to use.
-*   `-H https://www.n11.com`: Specifies the host URL to test against the n11 website.
+*   `-H https://www.somesite.com`: Specifies the host URL to test against the website.
 
 You can also specify the number of users and the hatch rate:
 
 ```bash
-locust -f load_tests.py -H https://www.n11.com --users 1 --hatch-rate 10
+locust -f load_tests.py -H https://www.somesite.com --users 1 --hatch-rate 10
 ```
 
 *   `--users`: The total number of users to simulate.
@@ -56,7 +56,7 @@ Open your browser and navigate to `http://localhost:8089` to access the Locust w
 
 ## Running UI Tests
 
-The project includes UI tests configured with Pytest and Selenium. These tests use page objects defined in the `pages/` directory to interact with the N11 website. Tests are marked like api and ui.
+The project includes UI tests configured with Pytest and Selenium. These tests use page objects defined in the `pages/` directory to interact with the website. Tests are marked like api and ui.
 
 To run the UI tests, use the following command:
 
@@ -83,14 +83,14 @@ Example:
 ```python
 def test_home_page_title(home_page):
     home_page.go_to_home_page()
-    assert "n11.com" in home_page.get_title()
+    assert "somesite" in home_page.get_title()
 ```
 
 ## Test Details
 
 ### Load Tests (Locust)
 
-The `load_tests.py` file defines the `N11SearchUser` class, which represents a simulated user. The class includes several tasks that mimic user behavior on the N11 website:
+The `load_tests.py` file defines the `SearchUser` class, which represents a simulated user. The class includes several tasks that mimic user behavior on the website:
 
 *   `perform_search`: Searches for a random product from a list of predefined search queries.
 *   `perform_search_by_popular`: Searches for a popular product ("valiz").
@@ -108,11 +108,3 @@ The `conftest.py` file configures the Pytest environment and provides fixtures f
 *   WebDriver initialization: Sets up Chrome or Firefox with headless options.
 *   Page object fixtures: Provides `home_page` and `careers_page` fixtures for easy access to page objects in tests.
 *   Screenshot on failure: Automatically captures screenshots for failed tests and saves them in the `screenshots/` directory.
-
-## Notes
-
-*   Ensure that the N11 website is accessible from your test environment.
-*   Adjust the number of users and hatch rate for load tests based on your system's resources and testing goals.
-*   Consider adding more sophisticated user behavior to the load tests to simulate real-world scenarios more accurately, such as adding items to cart and proceeding to checkout.
-*   The UI tests require the website to be in a specific state. Make sure the test environment is properly configured before running the UI tests. You may need to adjust the tests based on changes to the N11 website.
-*   Review the logging output in the console for additional information.
